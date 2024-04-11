@@ -1,0 +1,9 @@
+<library path="robocup_visualization">
+
+  <class name="robocup_visualization/Robocup Panel"
+         type="robocup_visualization::RobocupPanel"
+         base_class_type="rviz_common::Panel">
+    <description>The robocup rviz panel.</description>
+  </class>
+
+</library>
