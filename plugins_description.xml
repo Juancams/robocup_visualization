@@ -6,4 +6,10 @@
     <description>The robocup rviz panel.</description>
   </class>
 
+  <class name="robocup_visualization/Robocup Robot State"
+         type="robocup_visualization::RobocupRobotState"
+         base_class_type="rviz_common::Panel">
+    <description>The robocup robot state rviz panel.</description>
+  </class>
+
 </library>

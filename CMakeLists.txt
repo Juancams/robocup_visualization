@@ -23,9 +23,11 @@ find_package(rviz_common REQUIRED)
 find_package(rviz_default_plugins REQUIRED)
 find_package(rviz_ogre_vendor REQUIRED)
 find_package(rviz_rendering REQUIRED)
+find_package(action_msgs REQUIRED)
 
 set(robocup_visualization_headers_to_moc
   include/robocup_visualization/RobocupPanel.hpp
+  include/robocup_visualization/RobocupRobotState.hpp
 )
 
 include_directories(
@@ -36,6 +38,7 @@ set(library_name ${PROJECT_NAME})
 
 add_library(${library_name} SHARED
   src/RobocupPanel.cpp
+  src/RobocupRobotState.cpp
   ${robocup_visualization_headers_to_moc}
 )
 
@@ -47,6 +50,7 @@ set(dependencies
   rviz_default_plugins
   rviz_ogre_vendor
   rviz_rendering
+  action_msgs
 )
 
 ament_target_dependencies(${library_name}
@@ -83,7 +87,7 @@ install(
   DESTINATION include/
 )
 
-# install(DIRECTORY launch config DESTINATION share/${PROJECT_NAME})
+install(DIRECTORY launch config images DESTINATION share/${PROJECT_NAME})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
