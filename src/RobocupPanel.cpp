@@ -44,7 +44,7 @@ RobocupPanel::RobocupPanel(QWidget * parent)
 
   message_history_ = new QTextEdit();
   message_history_->setReadOnly(true);
-  message_history_->setStyleSheet("font-size: 25pt;");
+  message_history_->setStyleSheet("font-size: 32pt;");
   message_history_->setWordWrapMode(QTextOption::WordWrap);
   scrollBar_ = message_history_->verticalScrollBar();
   panel_layout->addWidget(message_history_);
@@ -60,12 +60,12 @@ RobocupPanel::RobocupPanel(QWidget * parent)
   say_sub_ = node_->create_subscription<std_msgs::msg::String>(
     "/say_text", 10, std::bind(&RobocupPanel::sayCallback, this, std::placeholders::_1));
 
-  timer_ = new QTimer(this);
-  timer_->setInterval(100);
+  // timer_ = new QTimer(this);
+  // timer_->setInterval(100);
 
-  connect(timer_, &QTimer::timeout, this, &RobocupPanel::scrollToBottom);
+  // connect(timer_, &QTimer::timeout, this, &RobocupPanel::scrollToBottom);
 
-  timer_->start();
+  // timer_->start();
 
   spin_thread_ = std::thread(
     [this]() {
@@ -87,19 +87,26 @@ void RobocupPanel::listenCallback(const std_msgs::msg::String::SharedPtr msg)
 {
   std::string message = "Person: " + msg->data;
   message_history_->append("<font color=\"red\">" + QString::fromStdString(message));
+
+  for (int i = 0; i < 10; i++) {
+    scrollBar_->setValue(scrollBar_->maximum());
+  }
 }
 
 void RobocupPanel::sayCallback(const std_msgs::msg::String::SharedPtr msg)
 {
   std::string message = "Robot: " + msg->data;
   message_history_->append("<font color=\"blue\">" + QString::fromStdString(message));
-
+  
+  for (int i = 0; i < 10; i++) {
+    scrollBar_->setValue(scrollBar_->maximum());
+  }
 }
 
-void RobocupPanel::scrollToBottom()
-{
-  scrollBar_->setValue(scrollBar_->maximum());
-}
+// void RobocupPanel::scrollToBottom()
+// {
+  
+// }
 
 }  // namespace robocup_visualization
 

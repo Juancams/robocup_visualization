@@ -24,10 +24,13 @@ find_package(rviz_default_plugins REQUIRED)
 find_package(rviz_ogre_vendor REQUIRED)
 find_package(rviz_rendering REQUIRED)
 find_package(action_msgs REQUIRED)
+find_package(yolov8_msgs REQUIRED)
+find_package(cv_bridge REQUIRED)
 
 set(robocup_visualization_headers_to_moc
   include/robocup_visualization/RobocupPanel.hpp
   include/robocup_visualization/RobocupRobotState.hpp
+  include/robocup_visualization/RobocupObjectDetected.hpp
 )
 
 include_directories(
@@ -39,6 +42,7 @@ set(library_name ${PROJECT_NAME})
 add_library(${library_name} SHARED
   src/RobocupPanel.cpp
   src/RobocupRobotState.cpp
+  src/RobocupObjectDetected.cpp
   ${robocup_visualization_headers_to_moc}
 )
 
@@ -51,6 +55,8 @@ set(dependencies
   rviz_ogre_vendor
   rviz_rendering
   action_msgs
+  yolov8_msgs
+  cv_bridge
 )
 
 ament_target_dependencies(${library_name}

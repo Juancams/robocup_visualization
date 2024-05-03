@@ -17,6 +17,7 @@
   <depend>rviz_default_plugins</depend>
   <depend>rviz_ogre_vendor</depend>
   <depend>rviz_rendering</depend>
+  <depend>yolov8_msgs</depend>
   
   <exec_depend>libqt5-core</exec_depend>
   <exec_depend>libqt5-gui</exec_depend>

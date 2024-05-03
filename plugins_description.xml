@@ -12,4 +12,10 @@
     <description>The robocup robot state rviz panel.</description>
   </class>
 
+  <class name="robocup_visualization/Robocup Object Detected"
+         type="robocup_visualization::RobocupObjectDetected"
+         base_class_type="rviz_common::Panel">
+    <description>The robocup robot object detected rviz panel.</description>
+  </class>
+
 </library>

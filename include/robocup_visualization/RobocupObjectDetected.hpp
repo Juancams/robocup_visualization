@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef ROBOCUP_VISUALIZATION__ROBOCUPPANEL_HPP_
-#define ROBOCUP_VISUALIZATION__ROBOCUPPANEL_HPP_
+#ifndef ROBOCUP_VISUALIZATION__ROBOCUPOBJECTDETECTED_HPP_
+#define ROBOCUP_VISUALIZATION__ROBOCUPOBJECTDETECTED_HPP_
 
 #include <QtWidgets>
 #include <QLabel>
@@ -29,7 +29,6 @@
 #include <QApplication>
 #include <QMessageBox>
 #include <QTabWidget>
-#include <QScrollBar>
 
 #undef NO_ERROR
 
@@ -40,7 +39,12 @@
 #include "rclcpp/rclcpp.hpp"
 #include "rclcpp_action/rclcpp_action.hpp"
 #include "rviz_common/panel.hpp"
-#include "std_msgs/msg/string.hpp"
+#include "std_msgs/msg/int8.hpp"
+#include "action_msgs/msg/goal_status_array.hpp"
+#include "yolov8_msgs/msg/detection_array.hpp"
+#include <sensor_msgs/msg/image.hpp>
+#include <cv_bridge/cv_bridge.h>
+#include <opencv2/opencv.hpp>  
 
 
 class QPushButton;
@@ -48,35 +52,30 @@ class QPushButton;
 namespace robocup_visualization
 {
 
-class RobocupPanel : public rviz_common::Panel
+class RobocupObjectDetected : public rviz_common::Panel
 {
   Q_OBJECT
 
 public:
-  explicit RobocupPanel(QWidget * parent = 0);
-  virtual ~RobocupPanel();
+  explicit RobocupObjectDetected(QWidget * parent = 0);
+  virtual ~RobocupObjectDetected();
 
   void onInitialize() override;
 
 protected:
   QVBoxLayout * layout_;
   QTabWidget * tab_widget_;
-  QTextEdit * message_history_;
-  QScrollBar * scrollBar_;
-  // QTimer * timer_;
-
+  QLabel * image_label_;
+  
 private:
-  void listenCallback(const std_msgs::msg::String::SharedPtr msg);
-  void sayCallback(const std_msgs::msg::String::SharedPtr msg);
-  // void scrollToBottom();
+  void detectionCallback(const yolov8_msgs::msg::DetectionArray::SharedPtr msg);
 
   rclcpp::Node::SharedPtr node_;
-  rclcpp::Subscription<std_msgs::msg::String>::SharedPtr listen_sub_;
-  rclcpp::Subscription<std_msgs::msg::String>::SharedPtr say_sub_;
+  rclcpp::Subscription<yolov8_msgs::msg::DetectionArray>::SharedPtr detections_sub_;
 
   std::thread spin_thread_;
 };
 
 }  // namespace robocup_visualization
 
-#endif  //  ROBOCUP_VISUALIZATION__ROBOCUPPANEL_HPP_
+#endif  //  ROBOCUP_VISUALIZATION__ROBOCUPOBJECTDETECTED_HPP_
