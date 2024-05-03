@@ -65,7 +65,7 @@ RobocupObjectDetected::onInitialize()
 void
 RobocupObjectDetected::detectionCallback(const yolov8_msgs::msg::DetectionArray::SharedPtr msg)
 {
-  const auto& source_img = msg[0]->source_img;
+  const auto& source_img = msg->source_img;
 
   if (source_img.encoding.empty()) {
     std::cerr << "Error: Image encoding is empty" << std::endl;
