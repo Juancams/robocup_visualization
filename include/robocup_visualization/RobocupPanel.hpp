@@ -63,12 +63,12 @@ protected:
   QTabWidget * tab_widget_;
   QTextEdit * message_history_;
   QScrollBar * scrollBar_;
-  // QTimer * timer_;
+  QTimer * timer_;
 
 private:
   void listenCallback(const std_msgs::msg::String::SharedPtr msg);
   void sayCallback(const std_msgs::msg::String::SharedPtr msg);
-  // void scrollToBottom();
+  void scrollToBottom();
 
   rclcpp::Node::SharedPtr node_;
   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr listen_sub_;
